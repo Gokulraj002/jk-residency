@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, Clock, Heart, Mail, MapPin, Phone, Sparkles, Users } from "lucide-react";
+import { ArrowRight, Award, Clock, Heart, Mail, MapPin, Phone, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import aboutHeader from "@/assets/room-deluxe.jpeg";
 import aboutStory from "@/assets/room-seating.jpeg";
 import whyChoose1 from "@/assets/room-executive.jpeg";
 import whyChoose2 from "@/assets/room-bathroom.jpeg";
 import whyChoose3 from "@/assets/room-amenity.jpeg";
-import teamPhoto from "@/assets/room-family.jpeg";
 
 const values = [
   { icon: Heart, title: "Hospitality", desc: "Treating every guest like family with warmth and genuine care." },
@@ -220,31 +219,6 @@ export default function About() {
                 <img src={whyChoose3} alt="In-room amenity" loading="lazy" decoding="async" className="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105" />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TEAM */}
-      <section className="bg-secondary/30 py-20">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <Users className="h-8 w-8" />
-            </div>
-            <h2 className="mt-5 font-serif text-3xl font-bold md:text-4xl">Meet the Team</h2>
-            <div className="mt-3 flex justify-center">
-              <span className="h-[3px] w-14 rounded-full" style={{ background: "var(--gradient-warm)" }} />
-            </div>
-            <p className="mt-4 text-muted-foreground">The friendly faces behind your warm welcome.</p>
-          </div>
-          <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl shadow-[var(--shadow-warm)]">
-            <img
-              src={teamPhoto}
-              alt="The JK Residency team welcomes you"
-              loading="lazy"
-              decoding="async"
-              className="aspect-[16/9] w-full object-cover transition-transform duration-700 hover:scale-105"
-            />
           </div>
         </div>
       </section>
