@@ -32,27 +32,6 @@ export function SiteHeader() {
           : "border-b border-transparent bg-background/90 backdrop-blur-sm",
       )}
     >
-      {/* Top ribbon */}
-      <div className="hidden border-b border-border/40 bg-secondary/50 md:block">
-        <div className="container mx-auto flex items-center justify-end gap-5 px-4 py-1.5 md:px-6">
-          <a
-            href="tel:+919986727674"
-            className="flex items-center gap-1.5 text-xs text-muted-foreground transition hover:text-primary"
-          >
-            <Phone className="h-3 w-3" /> +91 99867 27674
-          </a>
-          <span className="h-3 w-px bg-border" />
-          <a
-            href="tel:+919986727676"
-            className="flex items-center gap-1.5 text-xs text-muted-foreground transition hover:text-primary"
-          >
-            <Phone className="h-3 w-3" /> +91 99867 27676
-          </a>
-          <span className="h-3 w-px bg-border" />
-          <span className="text-xs text-muted-foreground">Check-in 12 PM · Check-out 11 AM</span>
-        </div>
-      </div>
-
       {/* Main nav */}
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:h-[72px] md:px-6">
         <Link

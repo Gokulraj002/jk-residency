@@ -15,10 +15,15 @@ export const rooms = [
     shortDesc: "Spacious king-bed room with premium comforts.",
     fullDesc:
       "Our Executive room offers a spacious king-bed layout with premium furnishings, warm wood finishes, and thoughtful detailing throughout. Designed for business and leisure travelers alike, it pairs restful comfort with all the amenities you need to feel right at home.",
-    capacity: "Up to 2 guests",
+    capacity: "Up to 3 guests",
     bedType: "1 King Bed",
     size: "Approx. 280 sq.ft",
-    price: "From ₹1,700 + GST per night",
+    price: "From ₹2,000 + GST per night",
+    pricing: [
+      { occupancy: "Single", rate: 2000 },
+      { occupancy: "Double", rate: 2300 },
+      { occupancy: "Triple", rate: 2600 },
+    ],
     amenities: [
       "Air Conditioning",
       "Free High-Speed Wi-Fi",
@@ -44,10 +49,14 @@ export const rooms = [
     shortDesc: "Two single beds — ideal for friends or colleagues.",
     fullDesc:
       "The Executive Twin features two comfortable single beds in an elegantly appointed room — perfect for friends, colleagues, or family members who prefer separate sleeping arrangements without compromising on shared space and comforts.",
-    capacity: "Up to 2 guests",
+    capacity: "Up to 3 guests",
     bedType: "2 Single Beds",
     size: "Approx. 280 sq.ft",
-    price: "From ₹1,700 + GST per night",
+    price: "From ₹2,300 + GST per night",
+    pricing: [
+      { occupancy: "Double", rate: 2300 },
+      { occupancy: "Triple", rate: 2600 },
+    ],
     amenities: [
       "Air Conditioning",
       "Free High-Speed Wi-Fi",
@@ -72,10 +81,15 @@ export const rooms = [
     shortDesc: "A warm king-bed retreat with cozy seating.",
     fullDesc:
       "Our Deluxe room is a warm, well-appointed king-bed space with a dedicated seating area — designed for a restful and value-rich stay. Perfect for couples and solo travelers seeking comfort and a touch of charm.",
-    capacity: "Up to 2 guests",
+    capacity: "Up to 3 guests",
     bedType: "1 King Bed",
     size: "Approx. 250 sq.ft",
-    price: "From ₹1,700 + GST per night",
+    price: "From ₹2,200 + GST per night",
+    pricing: [
+      { occupancy: "Single", rate: 2200 },
+      { occupancy: "Double", rate: 2500 },
+      { occupancy: "Triple", rate: 2800 },
+    ],
     amenities: [
       "Air Conditioning",
       "Free High-Speed Wi-Fi",
@@ -103,7 +117,10 @@ export const rooms = [
     capacity: "Up to 3 guests",
     bedType: "3 Beds",
     size: "Approx. 320 sq.ft",
-    price: "From ₹1,700 + GST per night",
+    price: "₹3,300 + GST per night",
+    pricing: [
+      { occupancy: "Triple", rate: 3300 },
+    ],
     amenities: [
       "Air Conditioning",
       "Free High-Speed Wi-Fi",

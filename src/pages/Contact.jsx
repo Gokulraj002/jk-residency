@@ -167,7 +167,7 @@ export default function Contact() {
               </p>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 {[
-                  "Starting from ₹1,700 + GST",
+                  "Starting from ₹2,000 + GST",
                   "Long stay offers: 10–20% off",
                   "Couple friendly — all guests welcome",
                   "Free High-Speed Wi-Fi",

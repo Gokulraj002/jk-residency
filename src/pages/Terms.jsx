@@ -48,7 +48,7 @@ export default function Terms() {
           <div>
             <h2 className="font-serif text-2xl font-bold text-foreground">4. Pricing &amp; Payment</h2>
             <ul className="mt-3 space-y-2 list-disc list-inside text-muted-foreground">
-              <li>Room rates start from ₹1,700 + GST per night and may vary based on room type, season, and availability.</li>
+              <li>Room rates start from ₹2,000 + GST per night and may vary based on room type, season, and availability.</li>
               <li>All displayed prices are exclusive of applicable GST unless stated otherwise.</li>
               <li>Payment is due at check-in unless otherwise agreed in writing.</li>
               <li>Accepted payment methods will be confirmed at the time of booking.</li>

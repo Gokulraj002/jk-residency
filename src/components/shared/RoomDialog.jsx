@@ -230,10 +230,23 @@ export function RoomDialog({ room, open, onOpenChange }) {
             </div>
           </div>
 
-          {room.price && (
-            <div className="mt-6 rounded-lg border border-gold/40 bg-gold/10 px-4 py-3">
-              <p className="text-sm font-semibold text-foreground">{room.price}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Check-in: 12:00 PM · Check-out: 11:00 AM</p>
+          {room.pricing?.length > 0 && (
+            <div className="mt-6 rounded-xl border border-gold/40 bg-gold/8 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gold/20">
+                <p className="text-sm font-bold text-foreground">Pricing <span className="font-normal text-muted-foreground">(+ GST)</span></p>
+                <p className="text-xs text-muted-foreground">12 Noon Concept</p>
+              </div>
+              <div className="divide-y divide-gold/10">
+                {room.pricing.map((p) => (
+                  <div key={p.occupancy} className="flex items-center justify-between px-4 py-2.5">
+                    <span className="text-sm text-muted-foreground">{p.occupancy} Occupancy</span>
+                    <span className="text-sm font-bold text-foreground">₹{p.rate.toLocaleString("en-IN")}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="px-4 py-2 bg-gold/5 border-t border-gold/20">
+                <p className="text-xs text-muted-foreground">Check-in: 12:00 PM · Check-out: 11:00 AM</p>
+              </div>
             </div>
           )}
 

@@ -52,7 +52,7 @@ export default function Rooms() {
             Click any room for full details.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
-            {["Starting from ₹1,700 + GST", "Check-in: 12:00 PM", "Check-out: 11:00 AM", "Long Stay: 10–20% Off"].map((tag) => (
+            {["Starting from ₹2,000 + GST", "Check-in: 12:00 PM", "Check-out: 11:00 AM", "Long Stay: 10–20% Off"].map((tag) => (
               <span
                 key={tag}
                 className="rounded-full border border-border/60 bg-background/80 px-4 py-1.5 font-medium text-foreground/80"

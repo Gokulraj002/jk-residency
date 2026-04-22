@@ -27,7 +27,7 @@ const legalLinks = [
 ];
 
 const highlights = [
-  "Starting from ₹1,700 + GST",
+  "Starting from ₹2,000 + GST",
   "Long Stay 10–20% Off",
   "Couple Friendly",
   "Free Wi-Fi",

@@ -11,7 +11,7 @@ import teamPhoto from "@/assets/room-family.jpeg";
 const values = [
   { icon: Heart, title: "Hospitality", desc: "Treating every guest like family with warmth and genuine care." },
   { icon: Sparkles, title: "Comfort", desc: "Spotless rooms and thoughtful touches for a truly restful stay." },
-  { icon: Award, title: "Value", desc: "Quality stays starting from ₹1,700 + GST — affordable without compromise." },
+  { icon: Award, title: "Value", desc: "Quality stays starting from ₹2,000 + GST — affordable without compromise." },
 ];
 
 const reasons = [
@@ -19,7 +19,7 @@ const reasons = [
   "Clean, well-maintained rooms with modern amenities",
   "Convenient location above A2B Family Restaurant, KR Puram",
   "24/7 friendly support and security",
-  "Starting from ₹1,700 + GST — affordable without compromise",
+  "Starting from ₹2,000 + GST — affordable without compromise",
   "Couple friendly — all guests welcomed with dignity",
   "Long stay offers: 10–20% discount for extended stays",
   "Free High-Speed Wi-Fi throughout the property",
@@ -76,7 +76,7 @@ export default function About() {
               { icon: Clock, label: "Check-in", value: "12:00 PM" },
               { icon: Clock, label: "Check-out", value: "11:00 AM" },
               { icon: MapPin, label: "Location", value: "KR Puram" },
-              { icon: Award, label: "Starting Price", value: "₹1,700+GST" },
+              { icon: Award, label: "Starting Price", value: "₹2,000+GST" },
             ].map((f, idx) => (
               <div
                 key={f.label}

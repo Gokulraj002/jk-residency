@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { RoomDialog } from "@/components/shared/RoomDialog";
 import { rooms } from "@/data/rooms";
+import receptionHero from "@/assets/reception-hero.jpeg";
 import img01 from "@/assets/img-01.jpeg";
 import img02 from "@/assets/img-02.jpeg";
 import img03 from "@/assets/img-03.jpeg";
@@ -33,6 +34,7 @@ import img11 from "@/assets/img-11.jpeg";
 import img12 from "@/assets/img-12.jpeg";
 
 const bannerSlides = [
+  { src: receptionHero, alt: "JK Residency — welcoming reception" },
   { src: img01, alt: "JK Residency — comfortable rooms" },
   { src: img02, alt: "JK Residency — premium interiors" },
   { src: img03, alt: "JK Residency — warm ambience" },
@@ -44,14 +46,14 @@ const bannerSlides = [
 ];
 
 const quickStats = [
-  { icon: BedDouble, value: "₹1,700+", label: "Starting per night" },
+  { icon: BedDouble, value: "₹2,000+", label: "Starting per night" },
   { icon: Clock, value: "12:00 PM", label: "Check-in time" },
   { icon: Clock, value: "11:00 AM", label: "Check-out time" },
   { icon: Percent, value: "10–20%", label: "Long stay discount" },
 ];
 
 const features = [
-  { icon: BedDouble, title: "Cozy Comfort", desc: "Plush bedding and serene rooms for restful stays. Starting from ₹1,700 + GST." },
+  { icon: BedDouble, title: "Cozy Comfort", desc: "Plush bedding and serene rooms for restful stays. Starting from ₹2,000 + GST." },
   { icon: Coffee, title: "Warm Hospitality", desc: "Genuine care from a team that treats you like family. Open 24 hours." },
   { icon: Heart, title: "Couple Friendly", desc: "A welcoming, respectful space for all couples — just bring valid ID." },
   { icon: Wifi, title: "Free High-Speed Wi-Fi", desc: "Stay connected throughout your stay at no extra cost." },
@@ -94,7 +96,7 @@ function HeroBanner() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ height: "min(88vh, 720px)", minHeight: "560px" }}
+      style={{ height: "min(96vh, 860px)", minHeight: "680px" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -133,7 +135,7 @@ function HeroBanner() {
             </h1>
             <p className="mt-5 max-w-xl text-base text-white/85 drop-shadow md:text-lg">
               Comfortable, clean, and affordable stays starting from{" "}
-              <strong className="text-white">₹1,700 + GST</strong>. Couple friendly · Free Wi-Fi · Long
+              <strong className="text-white">₹2,000 + GST</strong>. Couple friendly · Free Wi-Fi · Long
               Stay Offers.
             </p>
 
@@ -269,7 +271,7 @@ export default function Home() {
             </div>
             <div className="absolute -right-3 -top-6 rounded-2xl bg-primary px-5 py-4 text-center text-primary-foreground shadow-[var(--shadow-warm)] md:right-4 lg:-right-6">
               <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Starting from</p>
-              <p className="font-serif text-2xl font-bold">₹1,700</p>
+              <p className="font-serif text-2xl font-bold">₹2,000</p>
               <p className="text-xs opacity-70">+ GST per night</p>
             </div>
             <div
@@ -293,7 +295,7 @@ export default function Home() {
               love. Whether you're here for a night or a month, we'll make you feel right at home.
             </p>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Couple friendly · Free High-Speed Wi-Fi · 24/7 support · Starting from ₹1,700 + GST
+              Couple friendly · Free High-Speed Wi-Fi · 24/7 support · Starting from ₹2,000 + GST
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="shadow-[var(--shadow-warm)]">
@@ -376,7 +378,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
                 <span className="absolute right-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground shadow">
-                  ₹1,700+
+                  ₹{Math.min(...(r.pricing?.map((p) => p.rate) ?? [0])).toLocaleString("en-IN")}+
                 </span>
                 <h3 className="absolute bottom-3 left-3 font-serif text-lg font-bold leading-tight text-white drop-shadow">
                   {r.name}
@@ -552,7 +554,7 @@ export default function Home() {
               {[
                 { value: "10–20%", label: "Long Stay Discount" },
                 { value: "24/7", label: "Guest Support" },
-                { value: "₹1,700+", label: "Starting Rate" },
+                { value: "₹2,000+", label: "Starting Rate" },
                 { value: "4 Types", label: "Room Options" },
               ].map((stat) => (
                 <div
@@ -615,7 +617,7 @@ export default function Home() {
 
           <p className="mx-auto mt-6 max-w-xl text-base text-white/70 md:text-lg">
             Reserve your room at JK Residency today. Starting from{" "}
-            <strong className="text-white">₹1,700 + GST</strong>. Call us or send an enquiry — we
+            <strong className="text-white">₹2,000 + GST</strong>. Call us or send an enquiry — we
             respond quickly.
           </p>
 
