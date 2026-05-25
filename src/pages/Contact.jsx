@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Clock, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
-import { toast } from "sonner";
+import { CheckCircle2, Clock, Mail, MapPin, MessageCircle, Phone, Send, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
+const WEB3FORMS_KEY = "60527053-7420-4c27-bb8d-b2795ba0a6eb";
 
 const contactSchema = z
   .object({
@@ -25,8 +28,13 @@ const contactSchema = z
     guests: z
       .string()
       .min(1, "Required")
-      .refine((v) => /^\d+$/.test(v) && Number(v) >= 1 && Number(v) <= 20, { message: "Enter between 1 and 20" }),
+      .refine((v) => /^\d+$/.test(v) && Number(v) >= 1 && Number(v) <= 20, {
+        message: "Enter between 1 and 20",
+      }),
     message: z.string().trim().max(1000, "Message is too long").optional().or(z.literal("")),
+    acceptTerms: z.boolean().refine((val) => val === true, {
+      message: "You must accept the Privacy Policy and Terms & Conditions",
+    }),
   })
   .refine((d) => new Date(d.checkOut) > new Date(d.checkIn), {
     message: "Check-out must be after check-in",
@@ -96,24 +104,57 @@ const contactInfo = [
 
 export default function Contact() {
   const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const today = new Date().toISOString().split("T")[0];
 
   const form = useForm({
     resolver: zodResolver(contactSchema),
-    defaultValues: { name: "", email: "", phone: "", checkIn: "", checkOut: "", guests: "1", message: "" },
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      checkIn: "",
+      checkOut: "",
+      guests: "1",
+      message: "",
+      acceptTerms: false,
+    },
   });
 
   const onSubmit = async (values) => {
     setSubmitting(true);
+    setSubmitStatus(null);
     try {
-      const existing = JSON.parse(localStorage.getItem("jk_enquiries") ?? "[]");
-      existing.push({ ...values, submittedAt: new Date().toISOString() });
-      localStorage.setItem("jk_enquiries", JSON.stringify(existing));
-    } catch { /* ignore storage errors */ }
-    await new Promise((r) => setTimeout(r, 600));
-    setSubmitting(false);
-    toast.success("Enquiry received!", { description: "Thank you — our team will get back to you shortly." });
-    form.reset();
+      const formData = new FormData();
+      formData.append("access_key", WEB3FORMS_KEY);
+      formData.append("subject", `New Booking Enquiry from ${values.name} — JK Residency`);
+      formData.append("from_name", "JK Residency Website");
+      formData.append("name", values.name);
+      formData.append("email", values.email);
+      formData.append("phone", values.phone);
+      formData.append("check_in", values.checkIn);
+      formData.append("check_out", values.checkOut);
+      formData.append("guests", values.guests);
+      formData.append("message", values.message || "No additional message");
+      formData.append("botcheck", "");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus("success");
+        form.reset();
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -126,7 +167,6 @@ export default function Contact() {
           style={{ backgroundImage: "radial-gradient(circle, oklch(0.34 0.13 264) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
         />
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent" />
-
         <div className="container relative mx-auto px-4 py-16 text-center md:px-6 md:py-20">
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold">
             <span className="h-1 w-1 rounded-full bg-gold" />
@@ -145,7 +185,8 @@ export default function Contact() {
       {/* CONTENT */}
       <section className="container mx-auto px-4 py-16 md:px-6 md:py-20">
         <div className="grid gap-10 lg:grid-cols-5">
-          {/* INFO */}
+
+          {/* INFO PANEL */}
           <div className="space-y-5 lg:col-span-2">
             {contactInfo.map((item) => (
               <div key={item.title} className="flex items-start gap-4">
@@ -159,7 +200,6 @@ export default function Contact() {
               </div>
             ))}
 
-            {/* Quick Facts card */}
             <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
               <p className="flex items-center gap-2 font-semibold text-foreground">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" />
@@ -181,7 +221,6 @@ export default function Contact() {
               </ul>
             </div>
 
-            {/* Google Maps embed */}
             <div className="overflow-hidden rounded-2xl border border-border/60 shadow-[var(--shadow-soft)]">
               <iframe
                 title="JK Residency location"
@@ -206,7 +245,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* FORM */}
+          {/* FORM PANEL */}
           <div className="lg:col-span-3">
             <Card className="border-border/60 shadow-[var(--shadow-soft)]">
               <CardContent className="p-6 md:p-8">
@@ -220,19 +259,49 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* SUCCESS MESSAGE */}
+                {submitStatus === "success" && (
+                  <div className="mb-6 flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 p-4">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+                    <div>
+                      <p className="font-semibold text-green-800">Enquiry Sent Successfully!</p>
+                      <p className="mt-0.5 text-sm text-green-700">
+                        Thank you! Our team will get back to you shortly on your email or phone.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* ERROR MESSAGE */}
+                {submitStatus === "error" && (
+                  <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
+                    <XCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-600" />
+                    <div>
+                      <p className="font-semibold text-red-800">Something went wrong</p>
+                      <p className="mt-0.5 text-sm text-red-700">
+                        Please try again or call us at{" "}
+                        <a href="tel:+919986727674" className="underline">+91 99867 27674</a>.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-5">
+                    {/* Honeypot anti-spam */}
+                    <input type="checkbox" name="botcheck" className="hidden" aria-hidden="true" />
+
                     <div className="grid gap-5 md:grid-cols-2">
                       <FormField control={form.control} name="name" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Full Name</FormLabel>
+                          <FormLabel>Full Name <span className="text-red-500">*</span></FormLabel>
                           <FormControl><Input placeholder="Your name" {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
                       )} />
                       <FormField control={form.control} name="email" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel>Email <span className="text-red-500">*</span></FormLabel>
                           <FormControl><Input type="email" placeholder="you@example.com" {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
@@ -241,7 +310,7 @@ export default function Contact() {
 
                     <FormField control={form.control} name="phone" render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone / WhatsApp</FormLabel>
+                        <FormLabel>Phone / WhatsApp <span className="text-red-500">*</span></FormLabel>
                         <FormControl><Input type="tel" placeholder="+91 99867 27674" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
@@ -250,21 +319,21 @@ export default function Contact() {
                     <div className="grid gap-5 md:grid-cols-3">
                       <FormField control={form.control} name="checkIn" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Check-in</FormLabel>
+                          <FormLabel>Check-in <span className="text-red-500">*</span></FormLabel>
                           <FormControl><Input type="date" min={today} {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
                       )} />
                       <FormField control={form.control} name="checkOut" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Check-out</FormLabel>
+                          <FormLabel>Check-out <span className="text-red-500">*</span></FormLabel>
                           <FormControl><Input type="date" min={today} {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
                       )} />
                       <FormField control={form.control} name="guests" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Guests</FormLabel>
+                          <FormLabel>Guests <span className="text-red-500">*</span></FormLabel>
                           <FormControl><Input type="number" min={1} max={20} {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
@@ -273,7 +342,10 @@ export default function Contact() {
 
                     <FormField control={form.control} name="message" render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message (optional)</FormLabel>
+                        <FormLabel>
+                          Message{" "}
+                          <span className="text-xs text-muted-foreground">(optional)</span>
+                        </FormLabel>
                         <FormControl>
                           <Textarea rows={4} placeholder="Any special requests, long stay inquiry, or questions?" {...field} />
                         </FormControl>
@@ -281,7 +353,51 @@ export default function Contact() {
                       </FormItem>
                     )} />
 
-                    <Button type="submit" size="lg" disabled={submitting} className="shadow-[var(--shadow-warm)]">
+                    {/* Terms & Privacy Policy Checkbox */}
+                    <FormField
+                      control={form.control}
+                      name="acceptTerms"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start gap-3 rounded-xl border border-border/60 bg-secondary/30 p-4">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="mt-0.5"
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="cursor-pointer text-sm font-normal leading-relaxed">
+                              I have read and agree to the{" "}
+                              <Link
+                                to="/privacy-policy"
+                                target="_blank"
+                                className="font-semibold text-primary underline-offset-4 hover:underline"
+                              >
+                                Privacy Policy
+                              </Link>{" "}
+                              and{" "}
+                              <Link
+                                to="/terms"
+                                target="_blank"
+                                className="font-semibold text-primary underline-offset-4 hover:underline"
+                              >
+                                Terms &amp; Conditions
+                              </Link>{" "}
+                              of JK Residency.
+                            </FormLabel>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={submitting}
+                      className="shadow-[var(--shadow-warm)]"
+                    >
                       <Send className="h-4 w-4" />
                       {submitting ? "Sending..." : "Send Enquiry"}
                     </Button>
