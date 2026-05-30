@@ -124,8 +124,28 @@ export default function Terms() {
             </p>
           </div>
 
+          <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
+            <h2 className="font-serif text-2xl font-bold text-foreground">12. Communication Consent</h2>
+            <p className="mt-3 text-muted-foreground">
+              By submitting an enquiry or booking request through our website, you authorize
+              JK Residency to contact you via <strong>phone, SMS, RCS, WhatsApp, or email</strong> for:
+            </p>
+            <ul className="mt-3 space-y-2 list-disc list-inside text-muted-foreground">
+              <li>Booking confirmations and reservation-related communications</li>
+              <li>Informational updates regarding your stay</li>
+              <li>Promotional offers, discounts, and service updates</li>
+            </ul>
+            <p className="mt-3 text-muted-foreground">
+              <strong>Opt-Out:</strong> You may opt out of promotional messages at any time by contacting us at{" "}
+              <a href="mailto:jkrooms9@gmail.com" className="text-primary hover:underline">jkrooms9@gmail.com</a>{" "}
+              or{" "}
+              <a href="tel:+919986727674" className="text-primary hover:underline">+91 99867 27674</a>.
+              Essential booking-related messages may continue after opting out.
+            </p>
+          </div>
+
           <div>
-            <h2 className="font-serif text-2xl font-bold text-foreground">12. Contact</h2>
+            <h2 className="font-serif text-2xl font-bold text-foreground">13. Contact</h2>
             <p className="mt-3 text-muted-foreground">
               For any questions regarding these Terms and Conditions, please contact us:
             </p>

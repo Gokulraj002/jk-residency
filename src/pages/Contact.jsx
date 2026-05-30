@@ -35,6 +35,9 @@ const contactSchema = z
     acceptTerms: z.boolean().refine((val) => val === true, {
       message: "You must accept the Privacy Policy and Terms & Conditions",
     }),
+    acceptComms: z.boolean().refine((val) => val === true, {
+      message: "You must consent to receive booking updates and communications",
+    }),
   })
   .refine((d) => new Date(d.checkOut) > new Date(d.checkIn), {
     message: "Check-out must be after check-in",
@@ -118,6 +121,7 @@ export default function Contact() {
       guests: "1",
       message: "",
       acceptTerms: false,
+      acceptComms: false,
     },
   });
 
@@ -353,44 +357,76 @@ export default function Contact() {
                       </FormItem>
                     )} />
 
-                    {/* Terms & Privacy Policy Checkbox */}
-                    <FormField
-                      control={form.control}
-                      name="acceptTerms"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start gap-3 rounded-xl border border-border/60 bg-secondary/30 p-4">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="mt-0.5"
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="cursor-pointer text-sm font-normal leading-relaxed">
-                              I have read and agree to the{" "}
-                              <Link
-                                to="/privacy-policy"
-                                target="_blank"
-                                className="font-semibold text-primary underline-offset-4 hover:underline"
-                              >
-                                Privacy Policy
-                              </Link>{" "}
-                              and{" "}
-                              <Link
-                                to="/terms"
-                                target="_blank"
-                                className="font-semibold text-primary underline-offset-4 hover:underline"
-                              >
-                                Terms &amp; Conditions
-                              </Link>{" "}
-                              of JK Residency.
-                            </FormLabel>
-                            <FormMessage />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
+                    {/* Consent Checkboxes */}
+                    <div className="space-y-3 rounded-xl border border-border/60 bg-secondary/30 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                        Please Check The Boxes <span className="text-red-500">*</span>
+                      </p>
+
+                      {/* Checkbox 1 — Terms & Privacy */}
+                      <FormField
+                        control={form.control}
+                        name="acceptTerms"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start gap-3">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="mt-0.5"
+                              />
+                            </FormControl>
+                            <div className="leading-none">
+                              <FormLabel className="cursor-pointer text-sm font-normal leading-relaxed">
+                                I have read and agree to the{" "}
+                                <Link
+                                  to="/privacy-policy"
+                                  target="_blank"
+                                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                                >
+                                  Privacy Policy
+                                </Link>{" "}
+                                and{" "}
+                                <Link
+                                  to="/terms"
+                                  target="_blank"
+                                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                                >
+                                  Terms &amp; Conditions
+                                </Link>{" "}
+                                of JK Residency.
+                              </FormLabel>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Checkbox 2 — Communication Consent */}
+                      <FormField
+                        control={form.control}
+                        name="acceptComms"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start gap-3">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="mt-0.5"
+                              />
+                            </FormControl>
+                            <div className="leading-none">
+                              <FormLabel className="cursor-pointer text-sm font-normal leading-relaxed">
+                                I consent to receive booking confirmations, updates, and promotional
+                                messages from JK Residency via Phone, SMS, WhatsApp, or Email.
+                                I understand I can opt out at any time.
+                              </FormLabel>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
                     <Button
                       type="submit"

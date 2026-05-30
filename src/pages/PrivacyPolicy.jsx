@@ -121,8 +121,30 @@ export default function PrivacyPolicy() {
             </p>
           </div>
 
+          <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
+            <h2 className="font-serif text-2xl font-bold text-foreground">11. Communication Consent</h2>
+            <p className="mt-3 text-muted-foreground">
+              By submitting your information through our enquiry or contact form, you authorize
+              JK Residency to contact you via <strong>phone, SMS, RCS, WhatsApp, or email</strong> for
+              the following purposes:
+            </p>
+            <ul className="mt-3 space-y-2 list-disc list-inside text-muted-foreground">
+              <li>Booking confirmations and reservation-related updates</li>
+              <li>Informational messages regarding your stay at JK Residency</li>
+              <li>Promotional offers, discounts, and updates related to our services</li>
+            </ul>
+            <p className="mt-3 text-muted-foreground">
+              <strong>Opt-Out:</strong> You can opt out of promotional communications at any time by
+              contacting us at{" "}
+              <a href="mailto:jkrooms9@gmail.com" className="text-primary hover:underline">jkrooms9@gmail.com</a>{" "}
+              or calling{" "}
+              <a href="tel:+919986727674" className="text-primary hover:underline">+91 99867 27674</a>.
+              Transactional messages related to your booking may still be sent after opting out.
+            </p>
+          </div>
+
           <div>
-            <h2 className="font-serif text-2xl font-bold text-foreground">11. Contact Us</h2>
+            <h2 className="font-serif text-2xl font-bold text-foreground">12. Contact Us</h2>
             <p className="mt-3 text-muted-foreground">
               If you have any questions or concerns about this Privacy Policy, please contact us:
             </p>
